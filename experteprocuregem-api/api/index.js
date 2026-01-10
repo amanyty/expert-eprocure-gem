@@ -39,7 +39,18 @@ app.get('/api/health', (req, res) => {
     res.json({
         status: 'healthy',
         timestamp: new Date().toISOString(),
-        service: 'Expert Eprocure GeM API'
+        service: 'Expert Eprocure GeM API',
+        supabase_configured: !!(process.env.SUPABASE_URL && process.env.SUPABASE_ANON_KEY)
+    });
+});
+
+// Debug endpoint to check environment configuration
+app.get('/api/debug', (req, res) => {
+    res.json({
+        supabase_url: process.env.SUPABASE_URL ? 'SET (' + process.env.SUPABASE_URL.substring(0, 30) + '...)' : 'NOT SET',
+        supabase_anon: process.env.SUPABASE_ANON_KEY ? 'SET (length: ' + process.env.SUPABASE_ANON_KEY.length + ')' : 'NOT SET',
+        supabase_service: process.env.SUPABASE_SERVICE_ROLE_KEY ? 'SET (length: ' + process.env.SUPABASE_SERVICE_ROLE_KEY.length + ')' : 'NOT SET',
+        jwt_secret: process.env.JWT_SECRET ? 'SET' : 'NOT SET'
     });
 });
 
