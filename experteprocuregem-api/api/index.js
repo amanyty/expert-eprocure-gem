@@ -39,7 +39,7 @@ app.get('/api/health', (req, res) => {
     res.json({
         status: 'healthy',
         timestamp: new Date().toISOString(),
-        service: 'Expert Eprocure GeM API',
+        service: 'Experts Eprocure GeM API',
         supabase_configured: !!(process.env.SUPABASE_URL && process.env.SUPABASE_ANON_KEY)
     });
 });
