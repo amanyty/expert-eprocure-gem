@@ -858,10 +858,6 @@
                 display: flex;
             }
 
-            .logo img {
-                height: 60px;
-            }
-
             .nav-links {
                 position: fixed;
                 top: 80px;
@@ -873,7 +869,7 @@
                 gap: 1.5rem;
                 transform: translateY(-150%);
                 transition: transform 0.3s ease;
-                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
                 box-shadow: var(--shadow-md);
             }
 
@@ -883,44 +879,51 @@
 
             .nav-links a {
                 color: var(--dark);
+                font-size: 1.1rem;
+            }
+
+            .hero {
+                padding: 100px 0 60px;
+                text-align: center;
             }
 
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
 
-            .hero p {
-                font-size: 1rem;
+            .hero-content {
+                margin: 0 auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
             }
 
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 1rem;
-            }
-
-            .stat-number {
-                font-size: 2rem;
             }
 
             .mission-grid {
                 grid-template-columns: 1fr;
-                gap: 2rem;
+                gap: 3rem;
+                text-align: center;
             }
 
             .mission-visual {
-                height: 250px;
+                height: 300px;
+                order: -1;
             }
 
             .services-grid {
                 grid-template-columns: 1fr;
+                max-width: 500px;
+                margin: 0 auto;
             }
 
             .impact-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .impact-value {
-                font-size: 2.5rem;
+                max-width: 400px;
+                margin: 0 auto;
             }
 
             .why-us-grid {
@@ -929,29 +932,43 @@
 
             .contact-wrapper {
                 grid-template-columns: 1fr;
-                padding: 1.5rem;
-                gap: 2rem;
+                padding: 2rem;
+                gap: 3rem;
+            }
+
+            .contact-info {
+                text-align: center;
+            }
+
+            .contact-details {
+                align-items: center;
             }
 
             .footer-content {
                 flex-direction: column;
                 text-align: center;
-            }
-
-            .footer-logo img {
-                height: 50px;
+                gap: 2rem;
             }
 
             .footer-links {
                 flex-wrap: wrap;
                 justify-content: center;
-                gap: 1rem;
+                gap: 1.5rem;
+            }
+
+            .logo img {
+                height: 80px;
+                /* Smaller logo on mobile */
             }
         }
 
         @media (max-width: 480px) {
-            .logo img {
-                height: 50px;
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
             }
 
             .hero-buttons {
@@ -963,34 +980,17 @@
                 justify-content: center;
             }
 
-            .hero h1 {
-                font-size: 1.75rem;
-            }
-
             .stats-grid {
                 grid-template-columns: 1fr;
             }
 
-            .stat-number {
-                font-size: 1.75rem;
-            }
-
-            .section-title {
-                font-size: 1.5rem;
-            }
-
-            .service-card,
-            .impact-card,
-            .why-us-card {
-                padding: 1.5rem;
+            .logo img {
+                height: 60px;
+                /* Even smaller logo on very small screens */
             }
 
             .contact-wrapper {
-                padding: 1rem;
-            }
-
-            .form-row {
-                flex-direction: column;
+                padding: 1.5rem;
             }
         }
     </style>
