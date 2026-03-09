@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Learn about Expert Eprocure GeM - Our mission, values, and why businesses trust us for Government e-Marketplace procurement solutions.">
+    <title>About Us | Expert Eprocure GeM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .mission-section {
+            padding: 80px 0;
+        }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .mission-content h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .mission-content p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .mission-visual {
+            position: relative;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(33, 150, 243, 0.1) 0%, rgba(255, 193, 7, 0.1) 100%);
+            border-radius: 24px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .mission-visual::before {
+            content: '🏛️';
+            font-size: 8rem;
+            opacity: 0.8;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        /* Impact */
+        .impact-section {
+            padding: 80px 0;
+            background: var(--bg-light);
+        }
+
+        .impact-section .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .impact-section .section-subtitle {
+            margin: 0 auto;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .impact-card {
+            background: var(--white);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 24px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .impact-card:hover {
+            transform: scale(1.03);
+            border-color: rgba(33, 150, 243, 0.3);
+            box-shadow: var(--shadow-md);
+        }
+
+        .impact-value {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .impact-label {
+            color: var(--gray);
+            font-size: 1rem;
+        }
+
+        /* Why Us */
+        .why-us-section {
+            padding: 80px 0;
+        }
+
+        .why-us-section .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .why-us-section .section-subtitle {
+            margin: 0 auto;
+        }
+
+        .why-us-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .why-card {
+            display: flex;
+            gap: 1.5rem;
+            padding: 2rem;
+            background: var(--white);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .why-card:hover {
+            border-color: rgba(33, 150, 243, 0.2);
+            box-shadow: var(--shadow-md);
+        }
+
+        .why-icon {
+            width: 50px;
+            height: 50px;
+            min-width: 50px;
+            background: var(--gradient-2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .why-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .why-card p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* Timeline */
+        .timeline-section {
+            padding: 80px 0;
+            background: var(--bg-light);
+        }
+
+        .timeline-section .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .timeline {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 24px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--gradient-2);
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .timeline-dot {
+            width: 50px;
+            height: 50px;
+            min-width: 50px;
+            background: var(--gradient-2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            z-index: 1;
+        }
+
+        .timeline-content {
+            background: var(--white);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 16px;
+            padding: 1.5rem;
+            flex: 1;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .timeline-content h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            .mission-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .mission-visual {
+                height: 250px;
+                order: -1;
+            }
+
+            .impact-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .why-us-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header id="header">
+        <nav class="container">
+            <div class="logo"><a href="index.html"><img src="logo.png" alt="Expert Eprocure GeM"></a></div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="tickets.html">Support</a></li>
+                <li><a href="contact.html" class="nav-cta">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>About <span class="highlight">Expert Eprocure GeM</span></h1>
+            <p>Empowering businesses to successfully navigate the Government e-Marketplace ecosystem since day one.</p>
+        </div>
+    </section>
+
+    <!-- Mission -->
+    <section class="mission-section">
+        <div class="container">
+            <div class="mission-grid">
+                <div class="mission-content">
+                    <h2 class="section-title">Our Mission</h2>
+                    <p>At Expert Eprocure GeM, we are dedicated to empowering businesses to successfully navigate the
+                        Government e-Marketplace ecosystem. Our mission is to democratize access to government
+                        procurement opportunities.</p>
+                    <p>With deep expertise in GeM policies, procedures, and best practices, we bridge the gap between
+                        businesses and government buyers, ensuring seamless procurement experiences and sustainable
+                        growth.</p>
+                    <a href="contact.html" class="btn btn-primary">Talk to Our Experts →</a>
+                </div>
+                <div class="mission-visual"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact -->
+    <section class="impact-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Impact</h2>
+                <p class="section-subtitle">Measurable results that demonstrate our commitment to client success in
+                    government procurement</p>
+            </div>
+            <div class="impact-grid">
+                <div class="impact-card animate-on-scroll">
+                    <div class="impact-value">500+</div>
+                    <div class="impact-label">Businesses Registered on GeM</div>
+                </div>
+                <div class="impact-card animate-on-scroll">
+                    <div class="impact-value">₹50Cr+</div>
+                    <div class="impact-label">Order Value Facilitated</div>
+                </div>
+                <div class="impact-card animate-on-scroll">
+                    <div class="impact-value">1000+</div>
+                    <div class="impact-label">Successful Bid Submissions</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-us-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Why Choose Us</h2>
+                <p class="section-subtitle">What sets Expert Eprocure GeM apart as your trusted government procurement
+                    partner</p>
+            </div>
+            <div class="why-us-grid">
+                <div class="why-card animate-on-scroll">
+                    <div class="why-icon">🎓</div>
+                    <div>
+                        <h3>GeM-Certified Experts</h3>
+                        <p>Our team comprises certified professionals with extensive hands-on experience in government
+                            e-procurement systems.</p>
+                    </div>
+                </div>
+                <div class="why-card animate-on-scroll">
+                    <div class="why-icon">⚡</div>
+                    <div>
+                        <h3>Fast-Track Registration</h3>
+                        <p>Get your GeM seller account activated in record time with our streamlined registration
+                            process.</p>
+                    </div>
+                </div>
+                <div class="why-card animate-on-scroll">
+                    <div class="why-icon">🔒</div>
+                    <div>
+                        <h3>100% Compliance Guaranteed</h3>
+                        <p>We ensure your listings and bids meet all government procurement guidelines and regulations.
+                        </p>
+                    </div>
+                </div>
+                <div class="why-card animate-on-scroll">
+                    <div class="why-icon">🤝</div>
+                    <div>
+                        <h3>Dedicated Support</h3>
+                        <p>Personal account managers available around the clock to assist with your GeM journey.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How We Work -->
+    <section class="timeline-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">How We Work</h2>
+                <p class="section-subtitle">Our proven 4-step process to get you selling on GeM</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-dot">1️⃣</div>
+                    <div class="timeline-content">
+                        <h3>Consultation</h3>
+                        <p>We understand your business, products/services, and GeM goals through a detailed consultation
+                            call.</p>
+                    </div>
+                </div>
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-dot">2️⃣</div>
+                    <div class="timeline-content">
+                        <h3>Documentation</h3>
+                        <p>We prepare and verify all required documents — GST, PAN, bank details, and product
+                            specifications.</p>
+                    </div>
+                </div>
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-dot">3️⃣</div>
+                    <div class="timeline-content">
+                        <h3>Registration & Cataloging</h3>
+                        <p>Complete GeM seller registration, profile setup, and optimized product/service catalog
+                            creation.</p>
+                    </div>
+                </div>
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-dot">4️⃣</div>
+                    <div class="timeline-content">
+                        <h3>Bidding & Growth</h3>
+                        <p>Active bid management, order fulfillment support, and ongoing training to build your GeM
+                            capabilities.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="logo.png" alt="Expert Eprocure GeM">
+                    <p>Your trusted partner for Government e-Marketplace procurement solutions.</p>
+                    <div class="footer-social">
+                        <a href="https://wa.me/919523442474" target="_blank" rel="noopener">💬</a>
+                        <a href="https://www.instagram.com/experteprocuregem" target="_blank" rel="noopener">📷</a>
+                        <a href="https://www.facebook.com/profile.php?id=906165535922847" target="_blank"
+                            rel="noopener">📘</a>
+                        <a href="https://www.linkedin.com/in/expert-eprocure-gem-a49061393/" target="_blank"
+                            rel="noopener">🔗</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="services.html">GeM Registration</a></li>
+                        <li><a href="services.html">Bid Management</a></li>
+                        <li><a href="services.html">Cataloging</a></li>
+                        <li><a href="services.html">Compliance</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="tel:+919523442474">+91 95234 42474</a></li>
+                        <li><a href="mailto:experteprocuregem@zohomail.in">Email Us</a></li>
+                        <li><a href="tickets.html">Support Tickets</a></li>
+                        <li><a href="contact.html">Get in Touch</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 Expert Eprocure GeM. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI Chatbot -->
+    <button class="chatbot-fab" id="chatbotFab" aria-label="Chat with AI">🤖</button>
+    <div class="chatbot-panel" id="chatbotPanel">
+        <div class="chatbot-header">
+            <div class="chatbot-header-info">
+                <div class="avatar">🤖</div>
+                <div>
+                    <h4>GeM AI Assistant</h4>
+                    <p>Powered by Gemini AI</p>
+                </div>
+            </div>
+            <button class="chatbot-close" id="chatbotClose">✕</button>
+        </div>
+        <div class="chatbot-messages" id="chatMessages">
+            <div class="chat-msg bot">👋 Hello! Ask me anything about GeM!</div>
+        </div>
+        <div class="chatbot-suggestions"><button>How to register on GeM?</button><button>Documents
+                needed?</button><button>How does bidding work?</button></div>
+        <div class="chatbot-input"><input type="text" id="chatInput" placeholder="Ask about GeM..."
+                autocomplete="off"><button id="chatSend">➤</button></div>
+    </div>
+
+    <script src="shared.js"></script>
+</body>
+
+</html>

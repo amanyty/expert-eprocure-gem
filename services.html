@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Expert Eprocure GeM Services - GeM Seller Registration, Product Cataloging, Bid Management, Order Fulfillment, Compliance, and Training.">
+    <title>Our Services | Expert Eprocure GeM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .services-section {
+            padding: 80px 0;
+        }
+
+        .services-section .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .services-section .section-subtitle {
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .service-detail {
+            background: var(--white);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .service-detail::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-2);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .service-detail:hover {
+            transform: translateY(-8px);
+            border-color: rgba(33, 150, 243, 0.3);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .service-detail:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-detail .icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-2);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-detail h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .service-detail p {
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .service-detail ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .service-detail ul li {
+            color: var(--gray);
+            font-size: 0.9rem;
+            padding: 0.3rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .service-detail ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        /* Pricing / Packages */
+        .packages-section {
+            padding: 80px 0;
+            background: var(--bg-light);
+        }
+
+        .packages-section .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .packages-section .section-subtitle {
+            margin: 0 auto;
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .package-card {
+            background: var(--white);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 24px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        }
+
+        .package-card.featured {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
+            transform: scale(1.05);
+        }
+
+        .package-card.featured::after {
+            content: 'Most Popular';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gradient-2);
+            color: var(--white);
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .package-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .package-card.featured:hover {
+            transform: scale(1.05) translateY(-4px);
+        }
+
+        .package-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .package-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 1rem 0;
+        }
+
+        .package-price span {
+            font-size: 1rem;
+            color: var(--gray);
+            font-weight: 400;
+        }
+
+        .package-features {
+            list-style: none;
+            text-align: left;
+            margin: 1.5rem 0;
+        }
+
+        .package-features li {
+            padding: 0.5rem 0;
+            color: var(--gray);
+            font-size: 0.9rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .package-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .cta-banner {
+            padding: 60px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, #1565C0 100%);
+            text-align: center;
+            color: var(--white);
+        }
+
+        .cta-banner h2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .cta-banner p {
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .cta-banner .btn-secondary {
+            background: var(--white);
+            color: var(--primary);
+            border-color: var(--white);
+        }
+
+        @media (max-width: 1024px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .packages-grid {
+                grid-template-columns: 1fr;
+                max-width: 380px;
+                margin: 0 auto;
+            }
+
+            .package-card.featured {
+                transform: none;
+            }
+
+            .package-card.featured:hover {
+                transform: translateY(-4px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header id="header">
+        <nav class="container">
+            <div class="logo"><a href="index.html"><img src="logo.png" alt="Expert Eprocure GeM"></a></div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html" class="active">Services</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="tickets.html">Support</a></li>
+                <li><a href="contact.html" class="nav-cta">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn"
+                aria-label="Toggle menu"><span></span><span></span><span></span></button>
+        </nav>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1>Our <span class="highlight">Services</span></h1>
+            <p>Comprehensive GeM procurement solutions tailored to accelerate your government business success</p>
+        </div>
+    </section>
+
+    <section class="services-section">
+        <div class="container">
+            <div class="services-grid">
+                <div class="service-detail animate-on-scroll">
+                    <div class="icon">📝</div>
+                    <h3>GeM Seller Registration</h3>
+                    <p>Complete end-to-end registration assistance to get you selling on the Government e-Marketplace.
+                    </p>
+                    <ul>
+                        <li>Document preparation & verification</li>
+                        <li>Profile setup & optimization</li>
+                        <li>Category selection guidance</li>
+                        <li>Account activation support</li>
+                    </ul>
+                </div>
+                <div class="service-detail animate-on-scroll">
+                    <div class="icon">📦</div>
+                    <h3>Product/Service Cataloging</h3>
+                    <p>Expert catalog creation with optimized descriptions and competitive pricing.</p>
+                    <ul>
+                        <li>Optimized product descriptions</li>
+                        <li>Competitive pricing strategy</li>
+                        <li>GeM specification compliance</li>
+                        <li>Image & media optimization</li>
+                    </ul>
+                </div>
+                <div class="service-detail animate-on-scroll">
+                    <div class="icon">🎯</div>
+                    <h3>Bid Management</h3>
+                    <p>Strategic bid preparation and submission support for maximum win rates.</p>
+                    <ul>
+                        <li>L1, RA & GeM Requisitions</li>
+                        <li>Real-time bid tracking</li>
+                        <li>Competitive analysis</li>
+                        <li>Bid documentation support</li>
+                    </ul>
+                </div>
+                <div class="service-detail animate-on-scroll">
+                    <div class="icon">📊</div>
+                    <h3>Order Fulfillment Support</h3>
+                    <p>Complete assistance from order acceptance to delivery confirmation.</p>
+                    <ul>
+                        <li>Order acceptance & processing</li>
+                        <li>Invoice management</li>
+                        <li>Delivery coordination</li>
+                        <li>Payment follow-up</li>
+                    </ul>
+                </div>
+                <div class="service-detail animate-on-scroll">
+                    <div class="icon">🛡️</div>
+                    <h3>Compliance & Documentation</h3>
+                    <p>Ensure full compliance with GeM guidelines and government procurement regulations.</p>
+                    <ul>
+                        <li>GST compliance verification</li>
+                        <li>Document audit & preparation</li>
+                        <li>Regulatory updates tracking</li>
+                        <li>Quality certification guidance</li>
+                    </ul>
+                </div>
+                <div class="service-detail animate-on-scroll">
+                    <div class="icon">📈</div>
+                    <h3>Training & Consultation</h3>
+                    <p>Personalized training sessions and ongoing consultation for in-house capability building.</p>
+                    <ul>
+                        <li>One-on-one training sessions</li>
+                        <li>Team workshops</li>
+                        <li>Strategy consultation</li>
+                        <li>Ongoing support & mentoring</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Packages -->
+    <section class="packages-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Packages</h2>
+                <p class="section-subtitle">Choose the plan that best suits your government procurement needs</p>
+            </div>
+            <div class="packages-grid">
+                <div class="package-card animate-on-scroll">
+                    <div class="package-name">Starter</div>
+                    <div class="package-price">₹4,999 <span>/ one-time</span></div>
+                    <ul class="package-features">
+                        <li>GeM Seller Registration</li>
+                        <li>Basic Profile Setup</li>
+                        <li>Up to 5 Product Listings</li>
+                        <li>Email Support</li>
+                    </ul>
+                    <a href="contact.html" class="btn btn-secondary" style="width: 100%;">Get Started</a>
+                </div>
+                <div class="package-card featured animate-on-scroll">
+                    <div class="package-name">Professional</div>
+                    <div class="package-price">₹14,999 <span>/ one-time</span></div>
+                    <ul class="package-features">
+                        <li>Everything in Starter</li>
+                        <li>Unlimited Product Listings</li>
+                        <li>Bid Management (3 months)</li>
+                        <li>Compliance Review</li>
+                        <li>Priority Phone Support</li>
+                    </ul>
+                    <a href="contact.html" class="btn btn-primary" style="width: 100%;">Choose Plan</a>
+                </div>
+                <div class="package-card animate-on-scroll">
+                    <div class="package-name">Enterprise</div>
+                    <div class="package-price">Custom</div>
+                    <ul class="package-features">
+                        <li>Everything in Professional</li>
+                        <li>Dedicated Account Manager</li>
+                        <li>Year-round Bid Management</li>
+                        <li>Training Workshops</li>
+                        <li>24/7 Priority Support</li>
+                    </ul>
+                    <a href="contact.html" class="btn btn-secondary" style="width: 100%;">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-banner">
+        <div class="container">
+            <h2>Need a Custom Solution?</h2>
+            <p>Talk to our experts to design a GeM procurement package tailored specifically for your business needs.
+            </p>
+            <a href="contact.html" class="btn btn-secondary">Schedule a Free Consultation →</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand"><img src="logo.png" alt="Expert Eprocure GeM">
+                    <p>Your trusted partner for Government e-Marketplace procurement solutions.</p>
+                    <div class="footer-social"><a href="https://wa.me/919523442474" target="_blank"
+                            rel="noopener">💬</a><a href="https://www.instagram.com/experteprocuregem" target="_blank"
+                            rel="noopener">📷</a><a href="https://www.facebook.com/profile.php?id=906165535922847"
+                            target="_blank" rel="noopener">📘</a><a
+                            href="https://www.linkedin.com/in/expert-eprocure-gem-a49061393/" target="_blank"
+                            rel="noopener">🔗</a></div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="services.html">GeM Registration</a></li>
+                        <li><a href="services.html">Bid Management</a></li>
+                        <li><a href="services.html">Cataloging</a></li>
+                        <li><a href="services.html">Compliance</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="tel:+919523442474">+91 95234 42474</a></li>
+                        <li><a href="mailto:experteprocuregem@zohomail.in">Email Us</a></li>
+                        <li><a href="tickets.html">Support Tickets</a></li>
+                        <li><a href="contact.html">Get in Touch</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 Expert Eprocure GeM. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <button class="chatbot-fab" id="chatbotFab" aria-label="Chat with AI">🤖</button>
+    <div class="chatbot-panel" id="chatbotPanel">
+        <div class="chatbot-header">
+            <div class="chatbot-header-info">
+                <div class="avatar">🤖</div>
+                <div>
+                    <h4>GeM AI Assistant</h4>
+                    <p>Powered by Gemini AI</p>
+                </div>
+            </div><button class="chatbot-close" id="chatbotClose">✕</button>
+        </div>
+        <div class="chatbot-messages" id="chatMessages">
+            <div class="chat-msg bot">👋 Need help choosing a service? Ask me!</div>
+        </div>
+        <div class="chatbot-suggestions"><button>How to register on GeM?</button><button>Documents
+                needed?</button><button>How does bidding work?</button></div>
+        <div class="chatbot-input"><input type="text" id="chatInput" placeholder="Ask about GeM..."
+                autocomplete="off"><button id="chatSend">➤</button></div>
+    </div>
+    <script src="shared.js"></script>
+</body>
+
+</html>

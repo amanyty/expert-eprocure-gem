@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Expert Eprocure GeM Blog - Latest articles on GeM registration, bidding strategies, policy updates, and government e-procurement insights.">
+    <title>Blog | Expert Eprocure GeM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .blog-section {
+            padding: 80px 0;
+        }
+
+        .blog-filters {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .blog-filter-btn {
+            padding: 0.5rem 1.25rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50px;
+            background: var(--white);
+            color: var(--gray);
+            font-family: inherit;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .blog-filter-btn:hover,
+        .blog-filter-btn.active {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .blog-card {
+            background: var(--white);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .blog-card-image {
+            height: 200px;
+            background: linear-gradient(135deg, rgba(33, 150, 243, 0.1) 0%, rgba(76, 175, 80, 0.1) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-card-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(transparent, var(--white));
+        }
+
+        .blog-card-body {
+            padding: 1.5rem;
+        }
+
+        .blog-card-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .blog-tag {
+            background: rgba(33, 150, 243, 0.1);
+            color: var(--primary);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .blog-date {
+            color: var(--gray-light);
+            font-size: 0.8rem;
+        }
+
+        .blog-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+
+        .blog-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .blog-read-more {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: gap 0.3s ease;
+        }
+
+        .blog-read-more:hover {
+            gap: 8px;
+        }
+
+        /* Full article view */
+        .article-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .article-overlay.active {
+            display: flex;
+        }
+
+        .article-modal {
+            background: var(--white);
+            border-radius: 24px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .article-header {
+            padding: 2rem 2rem 1rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .article-header h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--dark);
+            flex: 1;
+        }
+
+        .article-close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--gray);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .article-close-btn:hover {
+            background: var(--bg-light);
+            color: var(--dark);
+        }
+
+        .article-body {
+            padding: 2rem;
+            color: var(--dark);
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .article-body h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 1.5rem 0 0.75rem;
+            color: var(--dark);
+        }
+
+        .article-body p {
+            margin-bottom: 1rem;
+            color: var(--dark-light);
+        }
+
+        .article-body ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .article-body li {
+            margin-bottom: 0.5rem;
+            color: var(--dark-light);
+        }
+
+        /* API-loaded posts section */
+        .api-posts-section {
+            padding: 60px 0;
+            background: var(--bg-light);
+        }
+
+        .api-posts-section .section-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .no-posts-msg {
+            text-align: center;
+            color: var(--gray);
+            padding: 2rem;
+        }
+
+        @media (max-width: 1024px) {
+            .blog-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .blog-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .article-modal {
+                margin: 1rem;
+                max-height: 90vh;
+            }
+
+            .article-header,
+            .article-body {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header id="header">
+        <nav class="container">
+            <div class="logo"><a href="index.html"><img src="logo.png" alt="Expert Eprocure GeM"></a></div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
+                <li><a href="tickets.html">Support</a></li>
+                <li><a href="contact.html" class="nav-cta">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn"
+                aria-label="Toggle menu"><span></span><span></span><span></span></button>
+        </nav>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1>GeM <span class="highlight">Knowledge Hub</span></h1>
+            <p>Stay updated with the latest insights, tips, and policy updates on Government e-Marketplace procurement
+            </p>
+        </div>
+    </section>
+
+    <!-- Blog Articles -->
+    <section class="blog-section">
+        <div class="container">
+            <div class="blog-filters">
+                <button class="blog-filter-btn active" data-filter="all">All</button>
+                <button class="blog-filter-btn" data-filter="registration">Registration</button>
+                <button class="blog-filter-btn" data-filter="bidding">Bidding</button>
+                <button class="blog-filter-btn" data-filter="policy">Policy Updates</button>
+                <button class="blog-filter-btn" data-filter="tips">Tips & Guides</button>
+            </div>
+
+            <div class="blog-grid" id="blogGrid">
+                <!-- Articles rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- API Blog Posts -->
+    <section class="api-posts-section" id="apiPostsSection" style="display:none;">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Latest Updates</h2>
+                <p class="section-subtitle">Admin-published articles and announcements</p>
+            </div>
+            <div class="blog-grid" id="apiBlogGrid"></div>
+        </div>
+    </section>
+
+    <!-- Article Modal -->
+    <div class="article-overlay" id="articleOverlay">
+        <div class="article-modal">
+            <div class="article-header">
+                <h2 id="articleTitle"></h2>
+                <button class="article-close-btn" id="articleClose">✕</button>
+            </div>
+            <div class="article-body" id="articleBody"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand"><img src="logo.png" alt="Expert Eprocure GeM">
+                    <p>Your trusted partner for Government e-Marketplace procurement solutions.</p>
+                    <div class="footer-social"><a href="https://wa.me/919523442474" target="_blank"
+                            rel="noopener">💬</a><a href="https://www.instagram.com/experteprocuregem" target="_blank"
+                            rel="noopener">📷</a><a href="https://www.facebook.com/profile.php?id=906165535922847"
+                            target="_blank" rel="noopener">📘</a><a
+                            href="https://www.linkedin.com/in/expert-eprocure-gem-a49061393/" target="_blank"
+                            rel="noopener">🔗</a></div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="services.html">GeM Registration</a></li>
+                        <li><a href="services.html">Bid Management</a></li>
+                        <li><a href="services.html">Cataloging</a></li>
+                        <li><a href="services.html">Compliance</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="tel:+919523442474">+91 95234 42474</a></li>
+                        <li><a href="mailto:experteprocuregem@zohomail.in">Email Us</a></li>
+                        <li><a href="tickets.html">Support Tickets</a></li>
+                        <li><a href="contact.html">Get in Touch</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 Expert Eprocure GeM. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <button class="chatbot-fab" id="chatbotFab" aria-label="Chat with AI">🤖</button>
+    <div class="chatbot-panel" id="chatbotPanel">
+        <div class="chatbot-header">
+            <div class="chatbot-header-info">
+                <div class="avatar">🤖</div>
+                <div>
+                    <h4>GeM AI Assistant</h4>
+                    <p>Powered by Gemini AI</p>
+                </div>
+            </div><button class="chatbot-close" id="chatbotClose">✕</button>
+        </div>
+        <div class="chatbot-messages" id="chatMessages">
+            <div class="chat-msg bot">👋 Have questions about any article? Ask me!</div>
+        </div>
+        <div class="chatbot-suggestions"><button>How to register on GeM?</button><button>Documents
+                needed?</button><button>How does bidding work?</button></div>
+        <div class="chatbot-input"><input type="text" id="chatInput" placeholder="Ask about GeM..."
+                autocomplete="off"><button id="chatSend">➤</button></div>
+    </div>
+
+    <script src="shared.js"></script>
+    <script>
+        // ========== Blog Articles Data ==========
+        const articles = [
+            {
+                id: 1,
+                title: "Complete Guide to GeM Seller Registration in 2026",
+                excerpt: "Step-by-step guide covering everything you need to know about registering as a seller on the Government e-Marketplace.",
+                category: "registration",
+                icon: "📝",
+                date: "Mar 5, 2026",
+                content: `<h3>What is GeM?</h3><p>The Government e-Marketplace (GeM) is an online platform for public procurement in India. It provides an end-to-end solution for procurement of goods and services by government buyers from registered sellers.</p><h3>Who Can Register?</h3><p>Any Indian business entity — sole proprietor, partnership, LLP, private limited, or public limited company — can register as a seller on GeM. You must have a valid GST number and PAN card.</p><h3>Step-by-Step Registration Process</h3><ul><li><strong>Step 1:</strong> Visit gem.gov.in and click on "Sign Up" as a Seller</li><li><strong>Step 2:</strong> Provide your Aadhaar, PAN, and mobile number for OTP verification</li><li><strong>Step 3:</strong> Enter business details — entity type, GST number, bank account</li><li><strong>Step 4:</strong> Upload required documents — PAN card, GST certificate, bank statement</li><li><strong>Step 5:</strong> Complete e-KYC verification through Aadhaar</li><li><strong>Step 6:</strong> Add your products/services to the catalog</li></ul><h3>Documents Required</h3><ul><li>PAN Card (Individual/Business)</li><li>GST Registration Certificate</li><li>Aadhaar Card (for e-KYC)</li><li>Bank Account Details (canceled cheque or passbook)</li><li>ITR for last 3 years (for certain categories)</li><li>MSME/Udyam Registration (if applicable)</li></ul><h3>Common Mistakes to Avoid</h3><p>Many sellers face rejection due to mismatched names between PAN and GST, incorrect bank details, or incomplete documentation. Expert Eprocure GeM helps you avoid these pitfalls with our professional registration service.</p>`
+            },
+            {
+                id: 2,
+                title: "Top 10 Bidding Strategies for Winning GeM Contracts",
+                excerpt: "Proven strategies to improve your success rate in GeM bids — from pricing tactics to documentation excellence.",
+                category: "bidding",
+                icon: "🎯",
+                date: "Feb 28, 2026",
+                content: `<h3>Understanding GeM Bidding Types</h3><p>GeM offers several bidding mechanisms including L1 bidding (lowest price wins), Reverse Auction (RA), and custom bids. Understanding each type is crucial for success.</p><h3>Top 10 Winning Strategies</h3><ul><li><strong>1. Research Market Rates:</strong> Analyze competing prices before placing your bid</li><li><strong>2. Optimize Your Catalog:</strong> Ensure product descriptions match buyer search terms</li><li><strong>3. Maintain Quality Ratings:</strong> High ratings give you an edge in bid evaluation</li><li><strong>4. Respond Quickly:</strong> Be among the first to respond to bid opportunities</li><li><strong>5. Bundle Services:</strong> Offer value-added services to differentiate</li><li><strong>6. Documentation Excellence:</strong> Submit complete, error-free documentation</li><li><strong>7. Competitive Pricing:</strong> Use the 15% price variation rule strategically</li><li><strong>8. Track Bid Patterns:</strong> Monitor which departments buy what and when</li><li><strong>9. Maintain Compliance:</strong> Keep all certifications and registrations current</li><li><strong>10. Follow Up:</strong> Engage with buyers professionally post-bid</li></ul><h3>Common Bidding Mistakes</h3><p>Avoid undercutting too aggressively, missing bid deadlines, or providing incomplete technical specifications. These are the most common reasons sellers lose bids on GeM.</p>`
+            },
+            {
+                id: 3,
+                title: "GeM 4.0 Updates: Key Policy Changes for 2026",
+                excerpt: "Overview of the latest policy updates on GeM portal including new compliance rules, vendor ratings, and procurement limits.",
+                category: "policy",
+                icon: "📋",
+                date: "Feb 20, 2026",
+                content: `<h3>Major Changes in GeM 4.0</h3><p>The Government e-Marketplace has undergone significant updates in 2026 with the rollout of GeM 4.0. Here are the key changes every seller should know.</p><h3>Enhanced Vendor Rating System</h3><p>GeM now uses a comprehensive 5-star rating system based on delivery timeliness, product quality, documentation accuracy, and buyer feedback. Sellers with 4+ stars get priority placement.</p><h3>New Procurement Limits</h3><ul><li>Direct purchase limit increased to ₹5 lakh (from ₹25,000)</li><li>L1 bidding threshold raised to ₹50 lakh</li><li>Mandatory GeM procurement for all central government purchases above ₹10,000</li></ul><h3>Compliance Updates</h3><p>New requirements include mandatory MSME classification disclosure, updated GST compliance checks, and enhanced product quality certifications for certain categories.</p><h3>Digital Catalog 2.0</h3><p>GeM's new catalog system supports 3D product images, video demonstrations, and enhanced specification templates. Sellers who adopt these features see 40% higher engagement.</p>`
+            },
+            {
+                id: 4,
+                title: "Understanding GeM Product Cataloging Best Practices",
+                excerpt: "Master the art of creating optimized product listings that attract government buyers and win more orders.",
+                category: "tips",
+                icon: "📦",
+                date: "Feb 15, 2026",
+                content: `<h3>Why Catalog Optimization Matters</h3><p>Your product catalog is your digital showroom on GeM. Well-optimized listings receive up to 3x more buyer views and significantly higher order conversion rates.</p><h3>Best Practices for Product Listing</h3><ul><li><strong>Accurate Specifications:</strong> Match every field with exact product specifications</li><li><strong>Clear Images:</strong> Use high-quality images from multiple angles</li><li><strong>Competitive Pricing:</strong> Research market rates and offer competitive prices</li><li><strong>Complete Documentation:</strong> Upload all quality certificates and test reports</li><li><strong>Regular Updates:</strong> Keep inventory and pricing updated weekly</li></ul><h3>Common Catalog Mistakes</h3><p>Avoid generic descriptions, low-quality images, incorrect HSN codes, and outdated pricing. These issues lead to buyer complaints and lower ratings.</p>`
+            },
+            {
+                id: 5,
+                title: "How MSMEs Can Benefit from GeM: A Complete Guide",
+                excerpt: "Exclusive benefits, reservations, and support available for Micro, Small & Medium Enterprises on GeM.",
+                category: "registration",
+                icon: "🏢",
+                date: "Feb 10, 2026",
+                content: `<h3>MSME Benefits on GeM</h3><p>The Government of India provides special benefits to MSMEs on GeM to promote their participation in government procurement.</p><h3>Key Benefits</h3><ul><li><strong>25% Procurement Reservation:</strong> 25% of total procurement is reserved for MSMEs</li><li><strong>3% Sub-reservation for SC/ST:</strong> Additional reservation for SC/ST enterprises</li><li><strong>No EMD Required:</strong> MSMEs are exempted from Earnest Money Deposit</li><li><strong>No Prior Experience Required:</strong> Startups and new MSMEs can participate</li><li><strong>Price Preference:</strong> MSMEs can match L1 price and secure the order</li></ul><h3>How to Register as MSME on GeM</h3><p>You need a valid Udyam Registration certificate. Link it with your GeM profile to avail all MSME benefits automatically.</p>`
+            },
+            {
+                id: 6,
+                title: "GeM Order Fulfillment: From Acceptance to Payment",
+                excerpt: "Complete walkthrough of the order lifecycle on GeM — acceptance, delivery, inspection, and payment timelines.",
+                category: "tips",
+                icon: "✅",
+                date: "Feb 5, 2026",
+                content: `<h3>The GeM Order Lifecycle</h3><p>Understanding the complete order lifecycle helps you manage expectations and ensure timely delivery and payment.</p><h3>Step-by-Step Process</h3><ul><li><strong>Order Acceptance:</strong> Accept the order within 72 hours (auto-cancelled otherwise)</li><li><strong>Delivery:</strong> Ship within the agreed timeline as per the contract</li><li><strong>CRAC Upload:</strong> Upload Consignee Receipt and Acceptance Certificate</li><li><strong>Inspection:</strong> Buyer inspects goods (typically within 10 days)</li><li><strong>Invoice Processing:</strong> Upload invoice for payment processing</li><li><strong>Payment:</strong> Payment released within 10 days of CRAC acceptance</li></ul><h3>Tips for Faster Payment</h3><p>Ensure accurate invoicing, timely CRAC submission, and maintain communication with the consignee for quick inspection completion.</p>`
+            }
+        ];
+
+        // ========== Render Blog ==========
+        const blogGrid = document.getElementById('blogGrid');
+
+        function renderArticles(filter = 'all') {
+            const filtered = filter === 'all' ? articles : articles.filter(a => a.category === filter);
+            blogGrid.innerHTML = filtered.map(article => `
+                <div class="blog-card animate-on-scroll" onclick="openArticle(${article.id})" data-category="${article.category}">
+                    <div class="blog-card-image">${article.icon}</div>
+                    <div class="blog-card-body">
+                        <div class="blog-card-meta">
+                            <span class="blog-tag">${article.category.charAt(0).toUpperCase() + article.category.slice(1)}</span>
+                            <span class="blog-date">${article.date}</span>
+                        </div>
+                        <h3>${article.title}</h3>
+                        <p>${article.excerpt}</p>
+                        <span class="blog-read-more">Read More →</span>
+                    </div>
+                </div>
+            `).join('');
+
+            // Re-apply animation
+            blogGrid.querySelectorAll('.animate-on-scroll').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, 100);
+            });
+        }
+
+        // Filter buttons
+        document.querySelectorAll('.blog-filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.blog-filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderArticles(btn.dataset.filter);
+            });
+        });
+
+        // Open article
+        function openArticle(id) {
+            const article = articles.find(a => a.id === id);
+            if (!article) return;
+            document.getElementById('articleTitle').textContent = article.title;
+            document.getElementById('articleBody').innerHTML = article.content;
+            document.getElementById('articleOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        document.getElementById('articleClose').addEventListener('click', closeArticle);
+        document.getElementById('articleOverlay').addEventListener('click', (e) => {
+            if (e.target.id === 'articleOverlay') closeArticle();
+        });
+
+        function closeArticle() {
+            document.getElementById('articleOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Load API blog posts
+        async function loadAPIPosts() {
+            try {
+                const response = await fetch(`${API_URL}/api/blog/posts`);
+                const result = await response.json();
+                if (result.success && result.data && result.data.length > 0) {
+                    const section = document.getElementById('apiPostsSection');
+                    const grid = document.getElementById('apiBlogGrid');
+                    section.style.display = 'block';
+                    grid.innerHTML = result.data.map(post => `
+                        <div class="blog-card" onclick="openAPIArticle('${escapeHtml(post.title)}', \`${post.content.replace(/`/g, '\\`')}\`)">
+                            <div class="blog-card-image">📄</div>
+                            <div class="blog-card-body">
+                                <div class="blog-card-meta">
+                                    <span class="blog-tag">${escapeHtml(post.category || 'Update')}</span>
+                                    <span class="blog-date">${new Date(post.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                                </div>
+                                <h3>${escapeHtml(post.title)}</h3>
+                                <p>${escapeHtml(post.excerpt || post.content.substring(0, 150) + '...')}</p>
+                                <span class="blog-read-more">Read More →</span>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            } catch (e) {
+                // Silently fail — hardcoded articles are always available
+            }
+        }
+
+        function openAPIArticle(title, content) {
+            document.getElementById('articleTitle').textContent = title;
+            document.getElementById('articleBody').innerHTML = content;
+            document.getElementById('articleOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Initialize
+        renderArticles();
+        loadAPIPosts();
+    </script>
+</body>
+
+</html>

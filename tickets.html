@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Expert Eprocure GeM Support - Submit and track support tickets for GeM registration, bidding, document help, and payment issues.">
+    <title>Support | Expert Eprocure GeM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .ticket-section {
+            padding: 80px 0;
+        }
+
+        .ticket-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            margin-bottom: 3rem;
+            background: var(--bg-light);
+            border-radius: 50px;
+            padding: 4px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 3rem;
+        }
+
+        .ticket-tab {
+            flex: 1;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            background: transparent;
+            color: var(--gray);
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .ticket-tab.active {
+            background: var(--primary);
+            color: var(--white);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Submit Ticket Form */
+        .ticket-form-wrapper {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--white);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .ticket-form-wrapper h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .ticket-form-wrapper>p {
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        .priority-radio-group {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .priority-radio {
+            display: none;
+        }
+
+        .priority-label {
+            padding: 0.5rem 1rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            color: var(--gray);
+        }
+
+        .priority-radio:checked+.priority-label {
+            border-color: var(--primary);
+            background: rgba(33, 150, 243, 0.1);
+            color: var(--primary);
+        }
+
+        /* Ticket Tracker */
+        .tracker-wrapper {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .tracker-wrapper h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .tracker-wrapper>p {
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        .tracker-input-group {
+            display: flex;
+            gap: 0.75rem;
+            max-width: 500px;
+            margin: 0 auto 2rem;
+        }
+
+        .tracker-input-group input {
+            flex: 1;
+            padding: 1rem 1.25rem;
+            background: var(--bg-light);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50px;
+            font-family: inherit;
+            font-size: 1rem;
+            color: var(--dark);
+            transition: border-color 0.3s;
+        }
+
+        .tracker-input-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+        }
+
+        .tracker-input-group .btn {
+            border-radius: 50px;
+        }
+
+        /* Ticket Status Card */
+        .ticket-status-card {
+            display: none;
+            background: var(--white);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            text-align: left;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .ticket-status-card.active {
+            display: block;
+        }
+
+        .status-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .status-row:last-child {
+            border-bottom: none;
+        }
+
+        .status-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .status-value {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-badge.open {
+            background: rgba(33, 150, 243, 0.15);
+            color: var(--primary);
+        }
+
+        .status-badge.in-progress {
+            background: rgba(255, 193, 7, 0.15);
+            color: #F59E0B;
+        }
+
+        .status-badge.resolved {
+            background: rgba(76, 175, 80, 0.15);
+            color: #4CAF50;
+        }
+
+        .status-badge.closed {
+            background: rgba(120, 144, 156, 0.15);
+            color: var(--gray);
+        }
+
+        .admin-response {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(33, 150, 243, 0.05);
+            border: 1px solid rgba(33, 150, 243, 0.1);
+            border-radius: 12px;
+        }
+
+        .admin-response h4 {
+            font-size: 0.9rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-response p {
+            color: var(--dark-light);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Success Card */
+        .ticket-success {
+            display: none;
+            text-align: center;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 3rem;
+            background: var(--white);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            border-radius: 24px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .ticket-success.active {
+            display: block;
+        }
+
+        .ticket-success .icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .ticket-success h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .ticket-success .ticket-id {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            background: rgba(33, 150, 243, 0.1);
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            display: inline-block;
+            margin: 1rem 0;
+            letter-spacing: 1px;
+        }
+
+        .ticket-success p {
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        .tracker-error {
+            display: none;
+            text-align: center;
+            padding: 1rem;
+            background: rgba(229, 57, 53, 0.1);
+            border: 1px solid rgba(229, 57, 53, 0.2);
+            border-radius: 12px;
+            color: #E53935;
+            font-weight: 500;
+            max-width: 500px;
+            margin: 0 auto 1rem;
+        }
+
+        .tracker-error.active {
+            display: block;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 80px 0;
+            background: var(--bg-light);
+        }
+
+        .faq-section .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .faq-list {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--white);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 16px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .faq-question {
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--dark);
+            transition: color 0.3s;
+        }
+
+        .faq-question:hover {
+            color: var(--primary);
+        }
+
+        .faq-toggle {
+            font-size: 1.25rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.open .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-answer-inner {
+            padding: 0 1.5rem 1.25rem;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 200px;
+        }
+
+        @media (max-width: 768px) {
+            .ticket-tabs {
+                max-width: 100%;
+            }
+
+            .tracker-input-group {
+                flex-direction: column;
+            }
+
+            .ticket-form-wrapper {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header id="header">
+        <nav class="container">
+            <div class="logo"><a href="index.html"><img src="logo.png" alt="Expert Eprocure GeM"></a></div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="tickets.html" class="active">Support</a></li>
+                <li><a href="contact.html" class="nav-cta">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn"
+                aria-label="Toggle menu"><span></span><span></span><span></span></button>
+        </nav>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1>Support <span class="highlight">Center</span></h1>
+            <p>Submit a support ticket or track the status of an existing one. Our team responds within 24 hours.</p>
+        </div>
+    </section>
+
+    <section class="ticket-section">
+        <div class="container">
+            <div class="ticket-tabs">
+                <button class="ticket-tab active" data-tab="submit">Submit Ticket</button>
+                <button class="ticket-tab" data-tab="track">Track Ticket</button>
+            </div>
+
+            <!-- Submit Ticket -->
+            <div class="tab-content active" id="tab-submit">
+                <div class="ticket-form-wrapper" id="ticketForm">
+                    <h3>🎫 Submit a Support Ticket</h3>
+                    <p>Describe your issue and our team will get back to you within 24 hours.</p>
+                    <form id="submitTicketForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="ticketName">Your Name *</label>
+                                <input type="text" id="ticketName" name="name" placeholder="Full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="ticketEmail">Email Address *</label>
+                                <input type="email" id="ticketEmail" name="email" placeholder="your@email.com" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="ticketPhone">Phone Number</label>
+                                <input type="tel" id="ticketPhone" name="phone" placeholder="+91 XXXXX XXXXX">
+                            </div>
+                            <div class="form-group">
+                                <label for="ticketCategory">Category *</label>
+                                <select id="ticketCategory" name="category" required>
+                                    <option value="">Select category...</option>
+                                    <option value="Registration Issue">Registration Issue</option>
+                                    <option value="Bid Support">Bid Support</option>
+                                    <option value="Document Help">Document Help</option>
+                                    <option value="Payment Issue">Payment Issue</option>
+                                    <option value="Order Fulfillment">Order Fulfillment</option>
+                                    <option value="Technical Issue">Technical Issue</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ticketSubject">Subject *</label>
+                            <input type="text" id="ticketSubject" name="subject"
+                                placeholder="Brief description of your issue" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Priority</label>
+                            <div class="priority-radio-group">
+                                <input type="radio" name="priority" value="low" id="priorityLow" class="priority-radio">
+                                <label for="priorityLow" class="priority-label">🟢 Low</label>
+                                <input type="radio" name="priority" value="medium" id="priorityMedium"
+                                    class="priority-radio" checked>
+                                <label for="priorityMedium" class="priority-label">🟡 Medium</label>
+                                <input type="radio" name="priority" value="high" id="priorityHigh"
+                                    class="priority-radio">
+                                <label for="priorityHigh" class="priority-label">🔴 High</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ticketDescription">Description *</label>
+                            <textarea id="ticketDescription" name="description"
+                                placeholder="Provide detailed information about your issue..." required
+                                style="min-height: 150px;"></textarea>
+                        </div>
+                        <div class="form-status" id="ticketFormStatus"></div>
+                        <button type="submit" class="btn btn-primary" id="ticketSubmitBtn" style="width: 100%;">Submit
+                            Ticket →</button>
+                    </form>
+                </div>
+
+                <!-- Success State -->
+                <div class="ticket-success" id="ticketSuccess">
+                    <div class="icon">✅</div>
+                    <h3>Ticket Submitted Successfully!</h3>
+                    <p>Your support ticket has been created. Save your ticket ID:</p>
+                    <div class="ticket-id" id="successTicketId"></div>
+                    <p>We'll respond within 24 hours. You can track your ticket status using this ID.</p>
+                    <button class="btn btn-secondary" onclick="resetTicketForm()">Submit Another Ticket</button>
+                </div>
+            </div>
+
+            <!-- Track Ticket -->
+            <div class="tab-content" id="tab-track">
+                <div class="tracker-wrapper">
+                    <h3>🔍 Track Your Ticket</h3>
+                    <p>Enter your ticket ID to check the current status of your support request.</p>
+                    <div class="tracker-input-group">
+                        <input type="text" id="trackTicketId" placeholder="Enter Ticket ID (e.g., TKT-20260309-001)">
+                        <button class="btn btn-primary" id="trackBtn" onclick="trackTicket()">Track</button>
+                    </div>
+                    <div class="tracker-error" id="trackerError"></div>
+                    <div class="ticket-status-card" id="ticketStatusCard">
+                        <div class="status-row">
+                            <span class="status-label">Ticket ID</span>
+                            <span class="status-value" id="statusTicketId"></span>
+                        </div>
+                        <div class="status-row">
+                            <span class="status-label">Subject</span>
+                            <span class="status-value" id="statusSubject"></span>
+                        </div>
+                        <div class="status-row">
+                            <span class="status-label">Category</span>
+                            <span class="status-value" id="statusCategory"></span>
+                        </div>
+                        <div class="status-row">
+                            <span class="status-label">Priority</span>
+                            <span class="status-value" id="statusPriority"></span>
+                        </div>
+                        <div class="status-row">
+                            <span class="status-label">Status</span>
+                            <span id="statusStatus"></span>
+                        </div>
+                        <div class="status-row">
+                            <span class="status-label">Submitted</span>
+                            <span class="status-value" id="statusDate"></span>
+                        </div>
+                        <div class="admin-response" id="adminResponse" style="display:none;">
+                            <h4>💬 Response from Support Team</h4>
+                            <p id="adminResponseText"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="section-subtitle">Quick answers to common questions about GeM support</p>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                        <span>How long does it take to get a response?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">Our team typically responds within 24 hours of ticket submission.
+                            For high-priority issues, we aim to respond within 4 hours during business hours (9 AM - 6
+                            PM IST).</div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                        <span>What information should I include in my ticket?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">Include your GeM seller ID (if applicable), detailed description
+                            of the issue, any error messages or screenshots, and steps you've already taken. The more
+                            detail, the faster we can help!</div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                        <span>Can I contact you directly instead?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">Yes! You can reach us on WhatsApp at +91 95234 42474 or email
+                            experteprocuregem@zohomail.in. However, using the ticket system helps us track and
+                            prioritize your issue effectively.</div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                        <span>What types of issues can I raise tickets for?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">You can submit tickets for GeM registration issues, bidding
+                            assistance, document preparation, payment problems, order fulfillment queries, and any
+                            technical difficulties with the GeM platform.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand"><img src="logo.png" alt="Expert Eprocure GeM">
+                    <p>Your trusted partner for Government e-Marketplace procurement solutions.</p>
+                    <div class="footer-social"><a href="https://wa.me/919523442474" target="_blank"
+                            rel="noopener">💬</a><a href="https://www.instagram.com/experteprocuregem" target="_blank"
+                            rel="noopener">📷</a><a href="https://www.facebook.com/profile.php?id=906165535922847"
+                            target="_blank" rel="noopener">📘</a><a
+                            href="https://www.linkedin.com/in/expert-eprocure-gem-a49061393/" target="_blank"
+                            rel="noopener">🔗</a></div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="services.html">GeM Registration</a></li>
+                        <li><a href="services.html">Bid Management</a></li>
+                        <li><a href="services.html">Cataloging</a></li>
+                        <li><a href="services.html">Compliance</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="tel:+919523442474">+91 95234 42474</a></li>
+                        <li><a href="mailto:experteprocuregem@zohomail.in">Email Us</a></li>
+                        <li><a href="tickets.html">Support Tickets</a></li>
+                        <li><a href="contact.html">Get in Touch</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 Expert Eprocure GeM. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <button class="chatbot-fab" id="chatbotFab" aria-label="Chat with AI">🤖</button>
+    <div class="chatbot-panel" id="chatbotPanel">
+        <div class="chatbot-header">
+            <div class="chatbot-header-info">
+                <div class="avatar">🤖</div>
+                <div>
+                    <h4>GeM AI Assistant</h4>
+                    <p>Powered by Gemini AI</p>
+                </div>
+            </div><button class="chatbot-close" id="chatbotClose">✕</button>
+        </div>
+        <div class="chatbot-messages" id="chatMessages">
+            <div class="chat-msg bot">👋 Need help with a support issue? Ask me!</div>
+        </div>
+        <div class="chatbot-suggestions"><button>How to register on GeM?</button><button>Documents
+                needed?</button><button>How does bidding work?</button></div>
+        <div class="chatbot-input"><input type="text" id="chatInput" placeholder="Ask about GeM..."
+                autocomplete="off"><button id="chatSend">➤</button></div>
+    </div>
+
+    <script src="shared.js"></script>
+    <script>
+        const API_URL = 'https://expert-eprocure-gem-app1.vercel.app';
+
+        // Tab switching
+        document.querySelectorAll('.ticket-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.ticket-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+            });
+        });
+
+        // Submit ticket
+        document.getElementById('submitTicketForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const status = document.getElementById('ticketFormStatus');
+            const btn = document.getElementById('ticketSubmitBtn');
+            status.className = 'form-status';
+            btn.disabled = true;
+            btn.textContent = 'Submitting...';
+            status.className = 'form-status loading';
+            status.textContent = '⏳ Creating your ticket...';
+
+            const formData = new FormData(this);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                phone: formData.get('phone') || null,
+                subject: formData.get('subject'),
+                category: formData.get('category'),
+                priority: formData.get('priority') || 'medium',
+                description: formData.get('description')
+            };
+
+            try {
+                const response = await fetch(`${API_URL}/api/tickets/submit`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                if (result.success) {
+                    document.getElementById('ticketForm').style.display = 'none';
+                    document.getElementById('ticketSuccess').classList.add('active');
+                    document.getElementById('successTicketId').textContent = result.ticket_id;
+                } else {
+                    throw new Error(result.message);
+                }
+            } catch (error) {
+                status.className = 'form-status error';
+                status.textContent = '✗ ' + (error.message || 'Failed to submit ticket. Please try again.');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Submit Ticket →';
+            }
+        });
+
+        function resetTicketForm() {
+            document.getElementById('ticketForm').style.display = 'block';
+            document.getElementById('ticketSuccess').classList.remove('active');
+            document.getElementById('submitTicketForm').reset();
+            document.getElementById('ticketFormStatus').className = 'form-status';
+        }
+
+        // Track ticket
+        async function trackTicket() {
+            const ticketId = document.getElementById('trackTicketId').value.trim();
+            const errorEl = document.getElementById('trackerError');
+            const statusCard = document.getElementById('ticketStatusCard');
+
+            if (!ticketId) {
+                errorEl.textContent = 'Please enter a ticket ID';
+                errorEl.classList.add('active');
+                statusCard.classList.remove('active');
+                return;
+            }
+
+            errorEl.classList.remove('active');
+            statusCard.classList.remove('active');
+
+            try {
+                const response = await fetch(`${API_URL}/api/tickets/status/${encodeURIComponent(ticketId)}`);
+                const result = await response.json();
+
+                if (result.success) {
+                    const ticket = result.data;
+                    document.getElementById('statusTicketId').textContent = ticket.ticket_id;
+                    document.getElementById('statusSubject').textContent = ticket.subject;
+                    document.getElementById('statusCategory').textContent = ticket.category || 'General';
+                    document.getElementById('statusPriority').textContent = (ticket.priority || 'Medium').charAt(0).toUpperCase() + (ticket.priority || 'medium').slice(1);
+
+                    const statusBadge = `<span class="status-badge ${ticket.status}">${ticket.status.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}</span>`;
+                    document.getElementById('statusStatus').innerHTML = statusBadge;
+
+                    document.getElementById('statusDate').textContent = new Date(ticket.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+
+                    const responseDiv = document.getElementById('adminResponse');
+                    if (ticket.admin_response) {
+                        document.getElementById('adminResponseText').textContent = ticket.admin_response;
+                        responseDiv.style.display = 'block';
+                    } else {
+                        responseDiv.style.display = 'none';
+                    }
+
+                    statusCard.classList.add('active');
+                } else {
+                    throw new Error(result.message || 'Ticket not found');
+                }
+            } catch (error) {
+                errorEl.textContent = error.message || 'Ticket not found. Please check the ID and try again.';
+                errorEl.classList.add('active');
+            }
+        }
+
+        document.getElementById('trackTicketId').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') trackTicket();
+        });
+    </script>
+</body>
+
+</html>
