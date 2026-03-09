@@ -440,25 +440,6 @@ app.get('/api/analytics/summary', authenticateToken, async (req, res) => {
     }
 });
 
-// ============================================
-// ERROR HANDLING
-// ============================================
-
-app.use((err, req, res, next) => {
-    console.error('Unhandled error:', err);
-    res.status(500).json({
-        success: false,
-        message: 'Internal server error'
-    });
-});
-
-// 404 handler
-app.use((req, res) => {
-    res.status(404).json({
-        success: false,
-        message: 'Endpoint not found'
-    });
-});
 
 // ============================================
 // TICKETS - PUBLIC ENDPOINTS
@@ -692,6 +673,26 @@ function getOfflineReply(message) {
     }
     return '👋 Thanks for reaching out! I can help with:\n\n• GeM seller registration\n• Document requirements\n• Bidding strategies\n• Order fulfillment\n• Payment queries\n\nFor personalized assistance, contact our experts at **+91 95234 42474** or email **experteprocuregem@zohomail.in**';
 }
+
+// ============================================
+// ERROR HANDLING
+// ============================================
+
+app.use((err, req, res, next) => {
+    console.error('Unhandled error:', err);
+    res.status(500).json({
+        success: false,
+        message: 'Internal server error'
+    });
+});
+
+// 404 handler
+app.use((req, res) => {
+    res.status(404).json({
+        success: false,
+        message: 'Endpoint not found'
+    });
+});
 
 // Export for Vercel
 module.exports = app;
