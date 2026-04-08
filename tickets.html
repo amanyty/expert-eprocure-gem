@@ -423,7 +423,7 @@
                 <div class="ticket-form-wrapper" id="ticketForm">
                     <h3>🎫 Submit a Support Ticket</h3>
                     <p>Describe your issue and our team will get back to you within 24 hours.</p>
-                    <form id="submitTicketForm">
+                    <form id="submitTicketForm" onsubmit="event.preventDefault();">
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="ticketName">Your Name *</label>
@@ -489,6 +489,16 @@
                     <h3>Ticket Submitted Successfully!</h3>
                     <p>Your support ticket has been created. Save your ticket ID:</p>
                     <div class="ticket-id" id="successTicketId"></div>
+                    
+                    <div class="ticket-summary" style="background: rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.05); padding: 1.5rem; border-radius: 12px; text-align: left; margin-bottom: 1.5rem;">
+                        <h4 style="margin-bottom: 1rem; color: var(--dark); font-size: 1rem;">Ticket Summary</h4>
+                        <div style="margin-bottom: 0.5rem; font-size: 0.9rem;"><strong>Subject:</strong> <span id="successSubject" style="color: var(--gray);"></span></div>
+                        <div style="margin-bottom: 0.5rem; font-size: 0.9rem;"><strong>Category:</strong> <span id="successCategory" style="color: var(--gray);"></span></div>
+                        <div style="margin-bottom: 1rem; font-size: 0.9rem;"><strong>Priority:</strong> <span id="successPriority" style="color: var(--gray);"></span></div>
+                        <div style="margin-bottom: 0.25rem; font-size: 0.9rem;"><strong>Description:</strong></div>
+                        <div id="successDescription" style="font-size: 0.85rem; color: var(--gray); padding: 0.75rem; background: var(--white); border-radius: 8px; border: 1px solid rgba(0,0,0,0.05); white-space: pre-wrap; word-break: break-word;"></div>
+                    </div>
+
                     <p>We'll respond within 24 hours. You can track your ticket status using this ID.</p>
                     <button class="btn btn-secondary" onclick="resetTicketForm()">Submit Another Ticket</button>
                 </div>
@@ -664,7 +674,7 @@
 
     <script src="shared.js"></script>
     <script>
-        const API_URL = 'https://expert-eprocure-gem-app1.vercel.app';
+
 
         // Tab switching
         document.querySelectorAll('.ticket-tab').forEach(tab => {
@@ -708,7 +718,19 @@
                 if (result.success) {
                     document.getElementById('ticketForm').style.display = 'none';
                     document.getElementById('ticketSuccess').classList.add('active');
-                    document.getElementById('successTicketId').textContent = result.ticket_id;
+                    document.getElementById('successTicketId').textContent = result.ticket_id || 'N/A';
+                    
+                    try {
+                        if (result.data) {
+                            document.getElementById('successSubject').textContent = result.data.subject || 'N/A';
+                            document.getElementById('successCategory').textContent = result.data.category || 'N/A';
+                            const priority = result.data.priority || 'medium';
+                            document.getElementById('successPriority').textContent = priority.charAt(0).toUpperCase() + priority.slice(1);
+                            document.getElementById('successDescription').textContent = result.data.description || 'N/A';
+                        }
+                    } catch (renderError) {
+                        console.error('Error rendering summary:', renderError);
+                    }
                 } else {
                     throw new Error(result.message);
                 }
