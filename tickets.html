@@ -676,8 +676,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function() {
-            // TODO: Replace 'YOUR_EMAILJS_PUBLIC_KEY' with your actual EmailJS Public Key
-            emailjs.init("YOUR_EMAILJS_PUBLIC_KEY");
+            emailjs.init("Ly7XYChblE5MEkqQC");
         })();
     </script>
     
@@ -755,8 +754,7 @@
                             description: data.description
                         };
                         
-                        // TODO: Replace 'YOUR_EMAILJS_SERVICE_ID' and 'YOUR_EMAILJS_TEMPLATE_ID' with your actual keys
-                        await emailjs.send('YOUR_EMAILJS_SERVICE_ID', 'YOUR_EMAILJS_TEMPLATE_ID', templateParams);
+                        await emailjs.send('service_fqg9w6e', 'template_rfi2zsm', templateParams);
                         console.log('Query notification email sent successfully via EmailJS');
                     } catch (emailError) {
                         console.error('EmailJS Error - Notification failed but query was still saved:', emailError);
