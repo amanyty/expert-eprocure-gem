@@ -743,14 +743,7 @@
                     // ====== EMAILJS INTEGRATION ======
                     try {
                         const templateParams = {
-                            ticket_id: result.ticket_id || 'N/A',
-                            user_name: data.name,
-                            user_email: data.email,
-                            user_phone: data.phone || 'Not provided',
-                            subject: data.subject,
-                            category: data.category,
-                            priority: data.priority,
-                            description: data.description
+                            message: `New Consultancy Query Received\n\nQuery Reference ID: ${result.ticket_id || 'N/A'}\n\nClient Details:\nName: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone || 'Not provided'}\n\nQuery Details:\nSubject: ${data.subject}\nCategory: ${data.category}\nPriority: ${data.priority}\n\nDescription:\n${data.description}`
                         };
                         
                         await emailjs.send('service_fqg9w6e', 'template_rfi2zsm', templateParams);
