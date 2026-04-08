@@ -672,6 +672,15 @@
                 autocomplete="off"><button id="chatSend">➤</button></div>
     </div>
 
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            // TODO: Replace 'YOUR_EMAILJS_PUBLIC_KEY' with your actual EmailJS Public Key
+            emailjs.init("YOUR_EMAILJS_PUBLIC_KEY");
+        })();
+    </script>
+    
     <script src="shared.js"></script>
     <script>
 
@@ -731,6 +740,28 @@
                     } catch (renderError) {
                         console.error('Error rendering summary:', renderError);
                     }
+
+                    // ====== EMAILJS INTEGRATION ======
+                    try {
+                        const templateParams = {
+                            to_email: 'experteprocuregem@zohomail.in', // The website's registered email
+                            ticket_id: result.ticket_id || 'N/A',
+                            user_name: data.name,
+                            user_email: data.email,
+                            user_phone: data.phone || 'Not provided',
+                            subject: data.subject,
+                            category: data.category,
+                            priority: data.priority,
+                            description: data.description
+                        };
+                        
+                        // TODO: Replace 'YOUR_EMAILJS_SERVICE_ID' and 'YOUR_EMAILJS_TEMPLATE_ID' with your actual keys
+                        await emailjs.send('YOUR_EMAILJS_SERVICE_ID', 'YOUR_EMAILJS_TEMPLATE_ID', templateParams);
+                        console.log('Query notification email sent successfully via EmailJS');
+                    } catch (emailError) {
+                        console.error('EmailJS Error - Notification failed but query was still saved:', emailError);
+                    }
+                    // ================================
                 } else {
                     throw new Error(result.message);
                 }
