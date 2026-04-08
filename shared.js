@@ -157,7 +157,7 @@ function getHeaderHTML(activePage) {
                 <li><a href="about.html" ${activePage === 'about' ? 'class="active"' : ''}>About</a></li>
                 <li><a href="services.html" ${activePage === 'services' ? 'class="active"' : ''}>Services</a></li>
                 <li><a href="blog.html" ${activePage === 'blog' ? 'class="active"' : ''}>Blog</a></li>
-                <li><a href="tickets.html" ${activePage === 'tickets' ? 'class="active"' : ''}>Support</a></li>
+                <li><a href="tickets.html" ${activePage === 'tickets' ? 'class="active"' : ''}>Queries</a></li>
                 <li><a href="contact.html" class="nav-cta" ${activePage === 'contact' ? 'style="box-shadow: 0 0 0 3px rgba(255,255,255,0.3)"' : ''}>Contact</a></li>
             </ul>
             <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
@@ -207,7 +207,7 @@ function getFooterHTML() {
                     <ul>
                         <li><a href="tel:+919523442474">+91 95234 42474</a></li>
                         <li><a href="mailto:experteprocuregem@zohomail.in">Email Us</a></li>
-                        <li><a href="tickets.html">Support Tickets</a></li>
+                        <li><a href="tickets.html">Consultancy Queries</a></li>
                         <li><a href="contact.html">Get in Touch</a></li>
                     </ul>
                 </div>

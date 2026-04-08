@@ -17,35 +17,44 @@
     <style>
         /* ========== Home-specific styles ========== */
         .hero {
-            min-height: 100vh;
+            min-height: 90vh;
             display: flex;
             align-items: center;
             position: relative;
-            padding: 120px 0 80px;
-            overflow: hidden;
-            background: linear-gradient(180deg, var(--white) 0%, var(--bg-light) 100%);
+            padding: 140px 0 80px;
+            background: var(--bg-light);
+            border-bottom: 1px solid rgba(15, 23, 42, 0.05);
+        }
+
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 140px 0 80px;
+            background: var(--bg-light);
+            border-bottom: 1px solid rgba(15, 23, 42, 0.05);
+        }
+
+        .hero-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
         }
 
         .hero::before {
             content: '';
             position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(33, 150, 243, 0.08) 0%, transparent 70%);
-            animation: float 15s ease-in-out infinite;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: -30%;
-            left: -10%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(255, 193, 7, 0.06) 0%, transparent 70%);
-            animation: float 20s ease-in-out infinite reverse;
+            top: 0;
+            right: 0;
+            width: 45%;
+            height: 100%;
+            background: var(--gradient-1);
+            clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
+            z-index: 0;
         }
 
         .hero-content {
@@ -58,27 +67,19 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(33, 150, 243, 0.1);
-            border: 1px solid rgba(33, 150, 243, 0.3);
+            background: var(--white);
+            border: 1px solid rgba(15, 23, 42, 0.1);
             padding: 8px 16px;
-            border-radius: 50px;
-            font-size: 0.875rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
             color: var(--primary);
             margin-bottom: 1.5rem;
-            animation: pulse 2s ease-in-out infinite;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
-        @keyframes pulse {
 
-            0%,
-            100% {
-                box-shadow: 0 0 0 0 rgba(33, 150, 243, 0.4);
-            }
-
-            50% {
-                box-shadow: 0 0 0 10px rgba(33, 150, 243, 0);
-            }
-        }
 
         .hero h1 {
             font-size: clamp(2.5rem, 6vw, 4rem);
@@ -188,9 +189,20 @@
         }
 
         @media (max-width: 768px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
             .hero {
-                padding: 100px 0 60px;
+                padding: 120px 0 60px;
                 text-align: center;
+            }
+
+            .hero::before {
+                width: 100%;
+                clip-path: none;
+                opacity: 0.05;
             }
 
             .hero h1 {
@@ -242,7 +254,7 @@
                 <li><a href="about.html">About</a></li>
                 <li><a href="services.html">Services</a></li>
                 <li><a href="blog.html">Blog</a></li>
-                <li><a href="tickets.html">Support</a></li>
+                <li><a href="tickets.html">Queries</a></li>
                 <li><a href="contact.html" class="nav-cta">Contact</a></li>
             </ul>
             <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
@@ -253,16 +265,23 @@
 
     <!-- Hero Section -->
     <section class="hero" id="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-badge">⚡ Trusted GeM Procurement Partner</div>
-                <h1>Your Gateway to <span class="highlight">Government e-Marketplace</span> Success</h1>
-                <p>Expert Eprocure GeM simplifies government procurement with end-to-end GeM registration, bidding
-                    support, and strategic consultancy. Transform your business into a verified government supplier.</p>
+        <div class="container hero-inner">
+            <div class="hero-content" style="max-width: 100%;">
+                <div class="hero-badge">Verified GeM Consultancy</div>
+                <h1>Empowering Corporate Deals on <span class="highlight" style="color: var(--secondary);">Government e-Marketplace</span></h1>
+                <p>Strategic B2B & B2G procurement solutions. We handle complex vendor registrations, bid participations, and compliance management so you can scale revenue via GeM.</p>
                 <div class="hero-buttons">
-                    <a href="contact.html" class="btn btn-primary">Get Started →</a>
-                    <a href="services.html" class="btn btn-secondary">Explore Services</a>
+                    <a href="contact.html" class="btn btn-primary" style="box-shadow: none;">Partner With Us →</a>
+                    <a href="services.html" class="btn btn-secondary">Our Capabilities</a>
                 </div>
+            </div>
+            <div class="hero-image" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 2rem; box-shadow: var(--shadow-lg); backdrop-filter: blur(10px);">
+                <h3 style="color: var(--white); margin-bottom: 1.5rem; font-size: 1.25rem;">Why Enterprise Vendors Choose Us</h3>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 1rem;">
+                    <li style="display: flex; gap: 12px; color: rgba(255,255,255,0.85);"><span style="color: var(--secondary);">✓</span> Accelerated L1 & Forward Auction Bidding</li>
+                    <li style="display: flex; gap: 12px; color: rgba(255,255,255,0.85);"><span style="color: var(--secondary);">✓</span> Dedicated GeM Assessment Operations</li>
+                    <li style="display: flex; gap: 12px; color: rgba(255,255,255,0.85);"><span style="color: var(--secondary);">✓</span> MSME / OEM Registration Advocacy</li>
+                </ul>
             </div>
         </div>
     </section>
@@ -405,7 +424,7 @@
                     <ul>
                         <li><a href="tel:+919523442474">+91 95234 42474</a></li>
                         <li><a href="mailto:experteprocuregem@zohomail.in">Email Us</a></li>
-                        <li><a href="tickets.html">Support Tickets</a></li>
+                        <li><a href="tickets.html">Consultancy Queries</a></li>
                         <li><a href="contact.html">Get in Touch</a></li>
                     </ul>
                 </div>

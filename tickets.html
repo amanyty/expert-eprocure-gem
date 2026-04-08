@@ -396,7 +396,7 @@
                 <li><a href="about.html">About</a></li>
                 <li><a href="services.html">Services</a></li>
                 <li><a href="blog.html">Blog</a></li>
-                <li><a href="tickets.html" class="active">Support</a></li>
+                <li><a href="tickets.html" class="active">Queries</a></li>
                 <li><a href="contact.html" class="nav-cta">Contact</a></li>
             </ul>
             <button class="mobile-menu-btn" id="mobileMenuBtn"
@@ -406,23 +406,23 @@
 
     <section class="page-hero">
         <div class="container">
-            <h1>Support <span class="highlight">Center</span></h1>
-            <p>Submit a support ticket or track the status of an existing one. Our team responds within 24 hours.</p>
+            <h1>Consultancy <span class="highlight">Query</span> System</h1>
+            <p>Submit a formal query or track an existing request. Our analysts respond within 24 hours.</p>
         </div>
     </section>
 
     <section class="ticket-section">
         <div class="container">
             <div class="ticket-tabs">
-                <button class="ticket-tab active" data-tab="submit">Submit Ticket</button>
-                <button class="ticket-tab" data-tab="track">Track Ticket</button>
+                <button class="ticket-tab active" data-tab="submit">Submit Query</button>
+                <button class="ticket-tab" data-tab="track">Track Query</button>
             </div>
 
             <!-- Submit Ticket -->
             <div class="tab-content active" id="tab-submit">
                 <div class="ticket-form-wrapper" id="ticketForm">
-                    <h3>🎫 Submit a Support Ticket</h3>
-                    <p>Describe your issue and our team will get back to you within 24 hours.</p>
+                    <h3>🤝 Submit a Consultancy Query</h3>
+                    <p>Describe your immediate requirement and our team will get back to you within 24 hours.</p>
                     <form id="submitTicketForm" onsubmit="event.preventDefault();">
                         <div class="form-row">
                             <div class="form-group">
@@ -479,19 +479,19 @@
                         </div>
                         <div class="form-status" id="ticketFormStatus"></div>
                         <button type="submit" class="btn btn-primary" id="ticketSubmitBtn" style="width: 100%;">Submit
-                            Ticket →</button>
+                            Query →</button>
                     </form>
                 </div>
 
                 <!-- Success State -->
                 <div class="ticket-success" id="ticketSuccess">
                     <div class="icon">✅</div>
-                    <h3>Ticket Submitted Successfully!</h3>
-                    <p>Your support ticket has been created. Save your ticket ID:</p>
+                    <h3>Query Submitted Successfully!</h3>
+                    <p>Your consultancy query has been registered. Save your reference ID:</p>
                     <div class="ticket-id" id="successTicketId"></div>
                     
                     <div class="ticket-summary" style="background: rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.05); padding: 1.5rem; border-radius: 12px; text-align: left; margin-bottom: 1.5rem;">
-                        <h4 style="margin-bottom: 1rem; color: var(--dark); font-size: 1rem;">Ticket Summary</h4>
+                        <h4 style="margin-bottom: 1rem; color: var(--dark); font-size: 1rem;">Query Summary</h4>
                         <div style="margin-bottom: 0.5rem; font-size: 0.9rem;"><strong>Subject:</strong> <span id="successSubject" style="color: var(--gray);"></span></div>
                         <div style="margin-bottom: 0.5rem; font-size: 0.9rem;"><strong>Category:</strong> <span id="successCategory" style="color: var(--gray);"></span></div>
                         <div style="margin-bottom: 1rem; font-size: 0.9rem;"><strong>Priority:</strong> <span id="successPriority" style="color: var(--gray);"></span></div>
